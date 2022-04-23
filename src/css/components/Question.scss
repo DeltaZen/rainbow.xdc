@@ -1,11 +1,11 @@
-@import '../variables';
-@import url('https://fonts.googleapis.com/css?family=Rancho:400');
+@import "../variables";
 
 .card {
   position: relative;
   opacity: 0.9;
   border-radius: 10px;
-  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
   background-color: $question-background;
   box-shadow: 0 10px 15px 0 $question-shadow;
   margin-bottom: 15px;
@@ -35,7 +35,7 @@
 
 .question {
   position: relative;
-  font-family: 'Rancho', serif;
+  font-family: "Rancho", serif;
   font-size: 4rem;
   margin: 0;
 }

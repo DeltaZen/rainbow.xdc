@@ -4,7 +4,7 @@
   "description": "React app template for Delta Chat",
   "main": "index.js",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host --open",
     "build": "vite build",
     "preview": "vite preview"
   },
