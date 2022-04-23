@@ -1,0 +1,42 @@
+@import '../variables';
+@import url('https://fonts.googleapis.com/css?family=Gudea:400,700|Rancho:400');
+
+.body {
+  background-color: $body-background;
+  height: calc(100vh - 20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  color: $body-text;
+  font-family: 'Gudea', sans-serif;
+}
+
+.title {
+  font-family: 'Rancho', serif;
+  text-align: center;
+  font-size: 5rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.footer {
+  opacity: 0.9;
+  text-align: center;
+}
+
+.smallCard {
+  transform: scale(0.7);
+  opacity: 0.75;
+}
+
+.score {
+  margin: 5px 0 10px;
+  text-align: right;
+}
+
+.finalScore {
+  margin: 0;
+  text-align: center;
+  font-weight: 400;
+}

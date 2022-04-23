@@ -1,0 +1,9 @@
+name = "Rainbow Rex"
+
+[store]
+id="com.github.M4ss1ck.rainbow"
+version_name=1.0
+version_code=3
+author="M4ss1ck"
+author_email="massick@systemli.org"
+description="Colour Picker Game with a Dinosaur"
