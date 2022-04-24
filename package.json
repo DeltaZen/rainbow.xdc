@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite --host --open",
-    "build": "vite build",
-    "preview": "vite preview",
-    "xdc": "pnpx jszip-cli -c .jsziprc.json"
+    "prebuild": "vite build",
+    "build": "pnpx jszip-cli -c .jsziprc.json",
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "M4ss1ck",
