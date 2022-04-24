@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --host --open",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "xdc": "pnpx jszip-cli -c .jsziprc.json"
   },
   "keywords": [],
   "author": "M4ss1ck",
@@ -19,6 +20,7 @@
     "vite": "^2.9.5"
   },
   "devDependencies": {
+    "@ffflorian/jszip-cli": "^3.1.6",
     "sass": "^1.50.1"
   }
 }
