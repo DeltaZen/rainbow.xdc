@@ -1,4 +1,4 @@
-import questionCss from "../../css/components/Question.scss";
+import "../../css/components/Question.scss";
 import Countdown from "./Countdown.jsx";
 import React, { Component } from "react";
 
@@ -47,16 +47,14 @@ class Question extends Component {
   render() {
     const { word, colour, readColourRound, totalTime } = this.props;
     return (
-      <section className={questionCss.card}>
+      <section className="card">
         {readColourRound ? (
-          <span className={questionCss.highlight}>📖 read</span>
+          <span className="highlight">📖 read</span>
         ) : (
-          <span className={questionCss.highlightAlt}>see 👀</span>
+          <span className="highlightAlt">see 👀</span>
         )}
         <Countdown timeLeft={this.state.timeLeft} totalTime={totalTime} />
-        <h2 className={`${questionCss[colour]} ${questionCss.question}`}>
-          {word}
-        </h2>
+        <h2 className={`${colour}_q question`}>{word}</h2>
       </section>
     );
   }

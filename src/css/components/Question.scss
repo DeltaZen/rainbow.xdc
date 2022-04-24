@@ -5,7 +5,7 @@
   opacity: 0.9;
   border-radius: 10px;
   -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   background-color: $question-background;
   box-shadow: 0 10px 15px 0 $question-shadow;
   margin-bottom: 15px;
@@ -40,30 +40,30 @@
   margin: 0;
 }
 
-.red {
+.red_q {
   color: $red;
 }
 
-.green {
+.green_q {
   color: $green;
 }
 
-.blue {
+.blue_q {
   color: $blue;
 }
 
-.yellow {
+.yellow_q {
   color: $yellow;
 }
 
-.purple {
+.purple_q {
   color: $purple;
 }
 
-.pink {
+.pink_q {
   color: $pink;
 }
 
-.orange {
+.orange_q {
   color: $orange;
 }
