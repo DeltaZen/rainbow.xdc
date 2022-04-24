@@ -1,5 +1,5 @@
-@import '../variables';
-@import url('https://fonts.googleapis.com/css?family=Gudea:400,700|Rancho:400');
+@import "../variables";
+@import url("https://fonts.googleapis.com/css?family=Gudea:400,700|Rancho:400");
 
 .body {
   background-color: $body-background;
@@ -9,11 +9,11 @@
   justify-content: center;
   padding: 10px;
   color: $body-text;
-  font-family: 'Gudea', sans-serif;
+  font-family: "Gudea", sans-serif;
 }
 
 .title {
-  font-family: 'Rancho', serif;
+  font-family: "Rancho", serif;
   text-align: center;
   font-size: 5rem;
   margin-top: 0;
@@ -39,4 +39,15 @@
   margin: 0;
   text-align: center;
   font-weight: 400;
+}
+
+.scoreboardlist {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 0;
+  list-style: none;
+  font-size: large;
 }

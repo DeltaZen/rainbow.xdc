@@ -6,12 +6,6 @@ import React, { Component } from "react";
 import queryString from "query-string";
 
 import Question from "../components/Question.jsx";
-import Scoreboard from "../components/Scoreboard";
-
-//import TelegramGameProxy from 'TelegramGameProxy'
-
-const RAINBOW_REX_API =
-  "https://pv2scddcoi.execute-api.ap-southeast-1.amazonaws.com/prod";
 
 export default class App extends Component {
   constructor(props) {
@@ -49,9 +43,7 @@ export default class App extends Component {
   componentDidMount() {
     window.webxdc.setUpdateListener((update) => {
       const player = update.payload;
-      this.lastScore = player.score;
       this.PLAYERS[player.name] = player;
-      this.updateHighscore(player.score);
     });
 
     this.setRound();
@@ -122,7 +114,6 @@ export default class App extends Component {
   handleGameEnd(reason, data = {}) {
     const parsed = queryString.parse(window.location.search);
     if (parsed) {
-      let opts = {};
       if (parsed.userId && parsed.inlineMessageId) {
         const { userId, inlineMessageId } = parsed;
         opts = { userId, inlineMessageId };
@@ -130,14 +121,6 @@ export default class App extends Component {
         const { userId, chatId, msgId } = parsed;
         opts = { userId, chatId, msgId };
       }
-      // FIXME: webxdc here
-      // window.fetch(`${RAINBOW_REX_API}/score`, {
-      //   method: 'POST',
-      //   mode: 'cors',
-      //   body: JSON.stringify(Object.assign(opts, {score: this.state.score}))
-      // })
-      // .then(data => console.log('✅  POST succeeded!', data))
-      // .catch(error => console.error('❌  POST failed!', error))
       const player = window.webxdc.selfName;
       const payload = { name: player, score: this.state.score };
       const info = `${player} scored ${this.state.score} points in Rainbow Rex!`;
@@ -174,16 +157,6 @@ export default class App extends Component {
     this.setState(this.savedState);
   }
 
-  // async function updateLoader() {
-  //   window.webxdc.setUpdateListener((update) => {
-  //     const player = update.payload;
-  //     updateHighscore(player.addr, player.name, player.score);
-  //     if (update.serial === update.max_serial) {
-  //       lugares.style.display = "flex";
-  //     }
-  //   });
-  // }
-
   render() {
     return (
       <div key="game">
@@ -215,44 +188,59 @@ export default class App extends Component {
           </div>
         ) : (
           <div className="body">
-            <h1 className="title">Game Over</h1>
-
+            <h1 className="title">Scoreboard</h1>
+            <ul className="scoreboardlist">
+              {Object.keys(this.PLAYERS).length > 0 ? (
+                Object.keys(this.PLAYERS)
+                  .sort((a, b) => this.PLAYERS[b].score - this.PLAYERS[a].score)
+                  .map((key, index) => (
+                    <li
+                      key={key}
+                      className="finalScore"
+                      style={{
+                        fontWeight:
+                          this.PLAYERS[key].name === this.player
+                            ? "bold"
+                            : "normal",
+                      }}
+                    >
+                      {index + 1}. {key} scored {this.PLAYERS[key].score}
+                    </li>
+                  ))
+              ) : (
+                <li className="finalScore">No records yet</li>
+              )}
+            </ul>
             <h2 className="finalScore">
               Score: {this.state.score} Best: {this.lastScore}
-              {/* <button
-                className="subtleButton"
-                onClick={() => !this.showScoreboard}
-                style={{ marginLeft: 15 }}
-              >
-                Share
-              </button> */}
             </h2>
-            <div style={{ display: this.showScoreboard ? "block" : "none" }}>
-              <Scoreboard list={this.highscores()} />
-            </div>
             {this.state.outOfTime ? (
               <p className="footer">You ran out of time.</p>
             ) : (
               <div className="smallCard">
-                <Question
-                  word={this.state.question.word}
-                  colour={this.state.question.colour}
-                  readColourRound={this.state.readColourRound}
-                  totalTime={0}
-                  addTime={this.state.addTime}
-                  onTimeout={() => {}}
-                />
-                <p className="footer">
-                  You clicked{" "}
-                  <b className={`${this.state.optionClicked}_q`}>
-                    {this.state.optionClicked}
-                  </b>{" "}
-                  instead of{" "}
-                  <b className={`${this.state.correctAnswer}_q`}>
-                    {this.state.correctAnswer}
-                  </b>
-                  .
-                </p>
+                {this.state.optionClicked && (
+                  <>
+                    <Question
+                      word={this.state.question.word}
+                      colour={this.state.question.colour}
+                      readColourRound={this.state.readColourRound}
+                      totalTime={0}
+                      addTime={this.state.addTime}
+                      onTimeout={() => {}}
+                    />
+                    <p className="footer">
+                      You clicked{" "}
+                      <b className={`${this.state.optionClicked}_q`}>
+                        {this.state.optionClicked}
+                      </b>{" "}
+                      instead of{" "}
+                      <b className={`${this.state.correctAnswer}_q`}>
+                        {this.state.correctAnswer}
+                      </b>
+                      .
+                    </p>
+                  </>
+                )}
               </div>
             )}
 
