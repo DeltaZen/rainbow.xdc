@@ -1,0 +1,11 @@
+{
+  "compressionLevel": 0,
+  "dereferenceLinks": true,
+  "entries": ["dist/assets", "dist/index.html", "manifest.toml", "icon.png"],
+  "force": true,
+  "ignoreEntries": ["*.map"],
+  "mode": "add",
+  "outputEntry": "rainbow.xdc",
+  "quiet": false,
+  "verbose": false
+}

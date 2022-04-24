@@ -1,34 +1,26 @@
 {
-  "name": "webxdc-react-hello-world",
+  "name": "webxdc-rainbow",
   "version": "1.0.0",
-  "description": "React app template for Delta Chat",
+  "description": "Colour Picker Game for Delta Chat",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack serve",
-    "build": "webpack"
+    "dev": "vite --host --open",
+    "prebuild": "vite build",
+    "build": "pnpx jszip-cli -c .jsziprc.json",
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "M4ss1ck",
   "license": "0BSD",
   "dependencies": {
-    "babel-preset-react-app": "3",
+    "@vitejs/plugin-react": "^1.3.1",
     "query-string": "^7.1.1",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "vite": "^2.9.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.9",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-react": "^7.16.7",
-    "babel-loader": "^8.2.5",
-    "css-loader": "^6.7.1",
-    "html-webpack-plugin": "^5.5.0",
-    "sass": "^1.50.1",
-    "sass-loader": "^12.6.0",
-    "style-loader": "^3.3.1",
-    "tailwindcss": "^3.0.23",
-    "webpack": "^5.72.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.8.1"
+    "@ffflorian/jszip-cli": "^3.1.6",
+    "sass": "^1.50.1"
   }
 }
