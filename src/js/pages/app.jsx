@@ -218,14 +218,14 @@ export default class App extends Component {
             <h1 className="title">Game Over</h1>
 
             <h2 className="finalScore">
-              Score: {this.state.score}
-              <button
+              Score: {this.state.score} Best: {this.lastScore}
+              {/* <button
                 className="subtleButton"
                 onClick={() => !this.showScoreboard}
                 style={{ marginLeft: 15 }}
               >
                 Share
-              </button>
+              </button> */}
             </h2>
             <div style={{ display: this.showScoreboard ? "block" : "none" }}>
               <Scoreboard list={this.highscores()} />
