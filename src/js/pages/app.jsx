@@ -190,13 +190,20 @@ export default class App extends Component {
           <div className="body">
             <h1 className="title">Scoreboard</h1>
             <ul className="scoreboardlist">
+              {Object.keys(this.PLAYERS).length > 0 && (
+                <li className="record">
+                  <span>Rank</span>
+                  <span>Player</span>
+                  <span>Score</span>
+                </li>
+              )}
               {Object.keys(this.PLAYERS).length > 0 ? (
                 Object.keys(this.PLAYERS)
                   .sort((a, b) => this.PLAYERS[b].score - this.PLAYERS[a].score)
                   .map((key, index) => (
                     <li
                       key={key}
-                      className="finalScore"
+                      className="record"
                       style={{
                         fontWeight:
                           this.PLAYERS[key].name === this.player
@@ -204,7 +211,9 @@ export default class App extends Component {
                             : "normal",
                       }}
                     >
-                      {index + 1}. {key} scored {this.PLAYERS[key].score}
+                      <span>{index + 1}</span>
+                      <span>{key}</span>
+                      <span>{this.PLAYERS[key].score}</span>
                     </li>
                   ))
               ) : (

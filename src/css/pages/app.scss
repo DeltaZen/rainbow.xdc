@@ -1,5 +1,4 @@
 @import "../variables";
-@import url("https://fonts.googleapis.com/css?family=Gudea:400,700|Rancho:400");
 
 .body {
   background-color: $body-background;
@@ -13,9 +12,9 @@
 }
 
 .title {
-  font-family: "Rancho", serif;
+  font-family: serif;
   text-align: center;
-  font-size: 5rem;
+  font-size: 3rem;
   margin-top: 0;
   margin-bottom: 1rem;
 }
@@ -50,4 +49,13 @@
   padding: 0;
   list-style: none;
   font-size: large;
+}
+
+.record {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
 }
