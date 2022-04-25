@@ -42,6 +42,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    console.log("componentDidMount\n", this.PLAYERS);
     window.webxdc.setUpdateListener((update) => {
       const player = update.payload;
       this.PLAYERS[player.name] = player;
@@ -51,6 +52,11 @@ export default class App extends Component {
   }
 
   componentDidUpdate() {
+    console.log("componentDidUpdate\n", this.PLAYERS);
+    window.webxdc.setUpdateListener((update) => {
+      const player = update.payload;
+      this.PLAYERS[player.name] = player;
+    });
     if (this.state.question.word === this.savedState.question.word)
       this.setRound();
   }
