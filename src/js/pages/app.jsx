@@ -24,6 +24,7 @@ export default class App extends Component {
       correctAnswer: "",
       outOfTime: false, // reasons for game end: out of time, wrong answer
       gameState: "playing", // 'waiting', 'playing', 'ended'
+      firstTime: true,
     };
 
     this.savedState = this.state;
@@ -154,13 +155,13 @@ export default class App extends Component {
   }
 
   onNewGame() {
-    this.setState(this.savedState);
+    this.setState({ ...this.savedState, firstTime: false });
   }
 
   render() {
     return (
       <div key="game">
-        {this.state.gameState === "playing" ? (
+        {this.state.gameState === "playing" && !this.state.firstTime ? (
           <div className="body">
             <header>
               <h2 className="score">{this.state.score}</h2>
@@ -190,14 +191,16 @@ export default class App extends Component {
           <div className="body">
             <h1 className="title">Scoreboard</h1>
             <ul className="scoreboardlist">
-              {Object.keys(this.PLAYERS).length > 0 && (
+              {Object.keys(this.PLAYERS).length > 0 ? (
                 <li className="record">
                   <span>Rank</span>
                   <span>Player</span>
                   <span>Score</span>
                 </li>
+              ) : (
+                <p>No records yet</p>
               )}
-              {Object.keys(this.PLAYERS).length > 0 ? (
+              {Object.keys(this.PLAYERS).length > 0 &&
                 Object.keys(this.PLAYERS)
                   .sort((a, b) => this.PLAYERS[b].score - this.PLAYERS[a].score)
                   .map((key, index) => (
@@ -215,14 +218,11 @@ export default class App extends Component {
                       <span>{key}</span>
                       <span>{this.PLAYERS[key].score}</span>
                     </li>
-                  ))
-              ) : (
-                <li className="finalScore">No records yet</li>
-              )}
+                  ))}
             </ul>
-            <h2 className="finalScore">
-              Score: {this.state.score} Best: {this.lastScore}
-            </h2>
+            {!this.state.firstTime && (
+              <h2 className="finalScore">Score: {this.state.score}</h2>
+            )}
             {this.state.outOfTime ? (
               <p className="footer">You ran out of time.</p>
             ) : (
