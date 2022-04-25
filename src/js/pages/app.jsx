@@ -190,9 +190,19 @@ export default class App extends Component {
         ) : (
           <div className="body">
             <h1 className="title">Scoreboard</h1>
-            <ul className="scoreboardlist">
+            <ul className="scoreboardlist" style={{ position: "relative" }}>
               {Object.keys(this.PLAYERS).length > 0 ? (
-                <li className="record" style={{ fontWeight: "bold" }}>
+                <li
+                  className="record"
+                  style={{
+                    fontWeight: "bold",
+                    position: "sticky",
+                    top: 0,
+                    backgroundColor: "#383b4a",
+                    marginTop: "0",
+                    paddingTop: "5px",
+                  }}
+                >
                   <span>Rank</span>
                   <span>Player</span>
                   <span>Score</span>
