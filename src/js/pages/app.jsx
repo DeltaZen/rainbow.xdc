@@ -192,7 +192,7 @@ export default class App extends Component {
             <h1 className="title">Scoreboard</h1>
             <ul className="scoreboardlist">
               {Object.keys(this.PLAYERS).length > 0 ? (
-                <li className="record">
+                <li className="record" style={{ fontWeight: "bold" }}>
                   <span>Rank</span>
                   <span>Player</span>
                   <span>Score</span>
