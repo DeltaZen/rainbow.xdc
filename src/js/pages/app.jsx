@@ -3,8 +3,6 @@ import "../../css/components/Button.scss";
 import "../../css/components/Question.scss";
 import React, { Component } from "react";
 
-import queryString from "query-string";
-
 import Question from "../components/Question.jsx";
 
 export default class App extends Component {
@@ -42,7 +40,6 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount\n", this.PLAYERS);
     window.webxdc.setUpdateListener((update) => {
       const player = update.payload;
       this.PLAYERS[player.name] = player;
@@ -53,10 +50,7 @@ export default class App extends Component {
 
   componentDidUpdate() {
     console.log("componentDidUpdate\n", this.PLAYERS);
-    window.webxdc.setUpdateListener((update) => {
-      const player = update.payload;
-      this.PLAYERS[player.name] = player;
-    });
+    console.log(Object.keys(this.PLAYERS).length);
     if (this.state.question.word === this.savedState.question.word)
       this.setRound();
   }
@@ -119,23 +113,14 @@ export default class App extends Component {
   }
 
   handleGameEnd(reason, data = {}) {
-    const parsed = queryString.parse(window.location.search);
-    if (parsed) {
-      if (parsed.userId && parsed.inlineMessageId) {
-        const { userId, inlineMessageId } = parsed;
-        opts = { userId, inlineMessageId };
-      } else if (parsed.msgId && parsed.chatId && parsed.userId) {
-        const { userId, chatId, msgId } = parsed;
-        opts = { userId, chatId, msgId };
-      }
-      const player = window.webxdc.selfName;
-      const payload = { name: player, score: this.state.score };
-      const info = `${player} scored ${this.state.score} points in Rainbow Rex!`;
-      if (this.updateHighscore(this.state.score)) {
-        this.PLAYERS[player] = payload;
-        window.webxdc.sendUpdate({ payload: payload, info: info }, info);
-      }
+    const player = window.webxdc.selfName;
+    const payload = { name: player, score: this.state.score };
+    const info = `${player} scored ${this.state.score} points in Rainbow Rex!`;
+    if (this.updateHighscore(this.state.score)) {
+      this.PLAYERS[player] = payload;
+      window.webxdc.sendUpdate({ payload: payload, info: info }, info);
     }
+
     switch (reason) {
       case "time":
         this.setState({
