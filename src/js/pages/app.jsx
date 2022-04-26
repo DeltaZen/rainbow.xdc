@@ -47,7 +47,7 @@ export default class App extends Component {
           };
           if (
             update.serial === update.max_serial &&
-            this.state.gameState !== "playing"
+            this.state.gameState === "waiting"
           )
             this.setRound();
         }
