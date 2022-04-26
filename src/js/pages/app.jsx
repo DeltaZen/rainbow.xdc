@@ -43,9 +43,7 @@ export default class App extends Component {
     window.webxdc.setUpdateListener((update) => {
       const player = update.payload;
       this.PLAYERS[player.name] = player;
-    });
-
-    this.setRound();
+    }).then(() => this.setRound());
   }
 
   componentDidUpdate() {
