@@ -37,18 +37,25 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    window.webxdc.setUpdateListener((update) => {
-      const player = update.payload;
-      if (this.getHighscore(player.addr) < player.score) {
-        this.PLAYERS[player.addr] = {name: player.name, score: player.score};
-        if (update.serial === update.max_serial && this.state.gameState !== "playing") this.setRound();
-      }
-    }).then(() => this.setRound());
+    window.webxdc
+      .setUpdateListener((update) => {
+        const player = update.payload;
+        if (this.getHighscore(player.addr) < player.score) {
+          this.PLAYERS[player.addr] = {
+            name: player.name,
+            score: player.score,
+          };
+          if (
+            update.serial === update.max_serial &&
+            this.state.gameState !== "playing"
+          )
+            this.setRound();
+        }
+      })
+      .then(() => this.setRound());
   }
 
   componentDidUpdate() {
-    console.log("componentDidUpdate\n", this.PLAYERS);
-    console.log(Object.keys(this.PLAYERS).length);
     if (this.state.question.word === this.savedState.question.word)
       this.setRound();
   }
@@ -57,13 +64,8 @@ export default class App extends Component {
     return this.PLAYERS[addr] ? this.PLAYERS[addr].score : 0;
   }
 
-  highscores() {
-    return Object.keys(this.PLAYERS)
-      .map((key) => {
-        const player = this.PLAYERS[key];
-        return player;
-      })
-      .sort((a, b) => b.score - a.score);
+  parseName(name) {
+    return name.length > 9 ? name.substring(0, 8) + "..." : name;
   }
 
   setRound(previousWord) {
@@ -204,13 +206,11 @@ export default class App extends Component {
                       className="record"
                       style={{
                         fontWeight:
-                          key === window.webxdc.selfAddr
-                            ? "bold"
-                            : "normal",
+                          key === window.webxdc.selfAddr ? "bold" : "normal",
                       }}
                     >
                       <span>{index + 1}</span>
-                      <span>{this.PLAYERS[key].name}</span>
+                      <span>{this.parseName(this.PLAYERS[key].name)}</span>
                       <span>{this.PLAYERS[key].score}</span>
                     </li>
                   ))}
