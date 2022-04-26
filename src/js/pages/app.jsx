@@ -249,7 +249,7 @@ export default class App extends Component {
             )}
 
             <button className="primaryButton" onClick={this.onNewGame}>
-              Start new game
+              {this.state.gameState === "ended" ? "Play Again" : "Start Game"}
             </button>
           </div>
         )}
