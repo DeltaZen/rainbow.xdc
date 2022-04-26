@@ -204,7 +204,7 @@ export default class App extends Component {
                       className="record"
                       style={{
                         fontWeight:
-                          this.PLAYERS[key].addr === window.webxdc.selfAddr
+                          key === window.webxdc.selfAddr
                             ? "bold"
                             : "normal",
                       }}
