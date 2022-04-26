@@ -21,8 +21,7 @@ export default class App extends Component {
       optionClicked: "",
       correctAnswer: "",
       outOfTime: false, // reasons for game end: out of time, wrong answer
-      gameState: "playing", // 'waiting', 'playing', 'ended'
-      firstTime: true,
+      gameState: "waiting", // 'waiting', 'playing', 'ended'
     };
 
     this.savedState = this.state;
@@ -30,8 +29,6 @@ export default class App extends Component {
     this.onNewGame = this.onNewGame.bind(this);
     // added by me
     this.showScoreboard = false;
-    this.player = window.webxdc.selfName;
-    this.lastScore = 0;
     this.PLAYERS = {};
   }
 
@@ -42,7 +39,10 @@ export default class App extends Component {
   componentDidMount() {
     window.webxdc.setUpdateListener((update) => {
       const player = update.payload;
-      this.PLAYERS[player.name] = player;
+      if (this.getHighscore(player.addr) < player.score) {
+        this.PLAYERS[player.addr] = {name: player.name, score: player.score};
+        if (update.serial === update.max_serial && this.state.gameState !== "playing") this.setRound();
+      }
     }).then(() => this.setRound());
   }
 
@@ -53,12 +53,8 @@ export default class App extends Component {
       this.setRound();
   }
 
-  updateHighscore(score) {
-    if (this.lastScore < score) {
-      this.lastScore = score;
-      return true;
-    }
-    return false;
+  getHighscore(addr) {
+    return this.PLAYERS[addr] ? this.PLAYERS[addr].score : 0;
   }
 
   highscores() {
@@ -111,11 +107,11 @@ export default class App extends Component {
   }
 
   handleGameEnd(reason, data = {}) {
-    const player = window.webxdc.selfName;
-    const payload = { name: player, score: this.state.score };
-    const info = `${player} scored ${this.state.score} points in Rainbow Rex!`;
-    if (this.updateHighscore(this.state.score)) {
-      this.PLAYERS[player] = payload;
+    const addr = window.webxdc.selfAddr;
+    if (this.getHighscore(addr) < this.state.score) {
+      const name = window.webxdc.selfName;
+      const payload = { name: name, addr: addr, score: this.state.score };
+      const info = `${name} scored ${this.state.score} points in Rainbow!`;
       window.webxdc.sendUpdate({ payload: payload, info: info }, info);
     }
 
@@ -144,13 +140,13 @@ export default class App extends Component {
   }
 
   onNewGame() {
-    this.setState({ ...this.savedState, firstTime: false });
+    this.setState({ ...this.savedState, gameState: "playing" });
   }
 
   render() {
     return (
       <div key="game">
-        {this.state.gameState === "playing" && !this.state.firstTime ? (
+        {this.state.gameState === "playing" ? (
           <div className="body">
             <header>
               <h2 className="score">{this.state.score}</h2>
@@ -208,18 +204,18 @@ export default class App extends Component {
                       className="record"
                       style={{
                         fontWeight:
-                          this.PLAYERS[key].name === this.player
+                          this.PLAYERS[key].addr === window.webxdc.selfAddr
                             ? "bold"
                             : "normal",
                       }}
                     >
                       <span>{index + 1}</span>
-                      <span>{key}</span>
+                      <span>{this.PLAYERS[key].name}</span>
                       <span>{this.PLAYERS[key].score}</span>
                     </li>
                   ))}
             </ul>
-            {!this.state.firstTime && (
+            {this.state.gameState === "ended" && (
               <h2 className="finalScore">Score: {this.state.score}</h2>
             )}
             {this.state.outOfTime ? (
