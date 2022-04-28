@@ -1,5 +1,5 @@
 {
-  "compressionLevel": 0,
+  "compressionLevel": 9,
   "dereferenceLinks": true,
   "entries": ["dist/assets", "dist/index.html", "manifest.toml", "icon.png"],
   "force": true,
