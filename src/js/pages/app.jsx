@@ -27,8 +27,6 @@ export default class App extends Component {
     this.savedState = this.state;
     this.onTimeout = this.onTimeout.bind(this);
     this.onNewGame = this.onNewGame.bind(this);
-    // added by me
-    this.showScoreboard = false;
     this.PLAYERS = {};
   }
 
@@ -45,19 +43,11 @@ export default class App extends Component {
             name: player.name,
             score: player.score,
           };
-          if (
-            update.serial === update.max_serial &&
-            this.state.gameState === "waiting"
-          )
-            this.setRound();
+          if (update.serial === update.max_serial) {
+            this.setState({});  // refresh scoreboard
+          }
         }
-      })
-      .then(() => this.setRound());
-  }
-
-  componentDidUpdate() {
-    if (this.state.question.word === this.savedState.question.word)
-      this.setRound();
+      }, 0);
   }
 
   getHighscore(addr) {
@@ -142,7 +132,7 @@ export default class App extends Component {
   }
 
   onNewGame() {
-    this.setState({ ...this.savedState, gameState: "playing" });
+    this.setState({ ...this.savedState, gameState: "playing" }, () => this.setRound());
   }
 
   render() {
