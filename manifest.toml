@@ -1,9 +1,2 @@
 name = "Rainbow v1.0"
-
-[store]
-id="com.github.M4ss1ck.rainbow"
-version_name=1.0
-version_code=1
-author="M4ss1ck"
-author_email="massick@systemli.org"
-description="Color Picker Game"
+source_code_url = "https://github.com/DeltaZen/rainbow.xdc"

@@ -1,25 +1,20 @@
 {
-  "name": "webxdc-rainbow",
-  "version": "1.0.0",
-  "description": "Colour Picker Game for Delta Chat",
-  "main": "index.js",
+  "private": true,
+  "packageManager": "pnpm@6.32.3",
   "scripts": {
     "dev": "vite --host --open",
-    "build": "vite build && pnpx jszip-cli -c .jsziprc.json",
+    "build": "vite build && jszip-cli -c jszip.config.json",
     "preview": "vite preview"
   },
-  "keywords": [],
-  "author": "M4ss1ck",
-  "license": "0BSD",
   "dependencies": {
     "@vitejs/plugin-react": "^1.3.1",
     "query-string": "^7.1.1",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "vite": "^2.9.5"
+    "react-dom": "^18.0.0"
   },
   "devDependencies": {
     "@ffflorian/jszip-cli": "^3.1.6",
-    "sass": "^1.50.1"
+    "sass": "^1.50.1",
+    "vite": "^2.9.9"
   }
 }
