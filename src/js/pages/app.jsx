@@ -34,7 +34,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    window.onHighscoresChanged = () => this.setState({});  // refresh scoreboard
+    window.onHighscoresChanged = () => this.setState({}); // refresh scoreboard
   }
 
   parseName(name) {
@@ -45,7 +45,7 @@ export default class App extends Component {
     const decoyList = this.state.options;
     const decoy = decoyList[this.randomN(decoyList.length)];
     const answerList = decoyList.filter(
-      (colour) => colour !== previousWord && colour !== decoy
+      (colour) => colour !== previousWord && colour !== decoy,
     );
     const answer = answerList[this.randomN(answerList.length)];
     this.setState({
@@ -71,7 +71,7 @@ export default class App extends Component {
           score: this.state.score + 1,
           addTime: this.randomN(2000 + 5 * this.state.score, 1000),
         },
-        this.setRound(this.state.question.word)
+        this.setRound(this.state.question.word),
       );
     } else {
       this.handleGameEnd("wrong", {
@@ -109,7 +109,9 @@ export default class App extends Component {
   }
 
   onNewGame() {
-    this.setState({ ...this.savedState, gameState: "playing" }, () => this.setRound());
+    this.setState({ ...this.savedState, gameState: "playing" }, () =>
+      this.setRound(),
+    );
   }
 
   render() {
@@ -166,20 +168,19 @@ export default class App extends Component {
                 <p>No records yet</p>
               )}
               {scores.length > 0 &&
-               scores.map((player) => (
-                    <li
-                      key={player.pos}
-                      className="record"
-                      style={{
-                        fontWeight:
-                          player.current ? "bold" : "normal",
-                      }}
-                    >
-                      <span>{player.pos}</span>
-                      <span>{this.parseName(player.name)}</span>
-                      <span>{player.score}</span>
-                    </li>
-                  ))}
+                scores.map((player) => (
+                  <li
+                    key={player.pos}
+                    className="record"
+                    style={{
+                      fontWeight: player.current ? "bold" : "normal",
+                    }}
+                  >
+                    <span>{player.pos}</span>
+                    <span>{this.parseName(player.name)}</span>
+                    <span>{player.score}</span>
+                  </li>
+                ))}
             </ul>
             {this.state.gameState === "ended" && (
               <h2 className="finalScore">Score: {this.state.score}</h2>

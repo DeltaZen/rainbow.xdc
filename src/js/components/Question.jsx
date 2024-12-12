@@ -19,7 +19,7 @@ class Question extends Component {
     if (this.state.addTime !== addTime) {
       let cappedTime = Math.min(
         Question.defaultProps.totalTime,
-        this.state.timeLeft + addTime
+        this.state.timeLeft + addTime,
       );
       this.setState({
         addTime,
