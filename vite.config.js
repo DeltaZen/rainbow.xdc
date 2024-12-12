@@ -1,7 +1,9 @@
-import { defineConfig } from "vite";
+import { webxdcViteConfig } from "@webxdc/vite-plugins";
 import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
-export default defineConfig({
+// https://vitejs.dev/config/
+export default defineConfig(webxdcViteConfig({
   plugins: [react()],
   css: {
     preprocessorOptions: {
@@ -10,4 +12,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));

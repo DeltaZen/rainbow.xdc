@@ -27,7 +27,6 @@ export default class App extends Component {
     this.savedState = this.state;
     this.onTimeout = this.onTimeout.bind(this);
     this.onNewGame = this.onNewGame.bind(this);
-    this.PLAYERS = {};
   }
 
   randomN(max, min = 0) {
@@ -35,23 +34,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    window.webxdc
-      .setUpdateListener((update) => {
-        const player = update.payload;
-        if (this.getHighscore(player.addr) < player.score) {
-          this.PLAYERS[player.addr] = {
-            name: player.name,
-            score: player.score,
-          };
-          if (update.serial === update.max_serial) {
-            this.setState({});  // refresh scoreboard
-          }
-        }
-      }, 0);
-  }
-
-  getHighscore(addr) {
-    return this.PLAYERS[addr] ? this.PLAYERS[addr].score : 0;
+    window.onHighscoresChanged = () => this.setState({});  // refresh scoreboard
   }
 
   parseName(name) {
@@ -99,13 +82,7 @@ export default class App extends Component {
   }
 
   handleGameEnd(reason, data = {}) {
-    const addr = window.webxdc.selfAddr;
-    if (this.getHighscore(addr) < this.state.score) {
-      const name = window.webxdc.selfName;
-      const payload = { name: name, addr: addr, score: this.state.score };
-      const info = `${name} scored ${this.state.score} points in Rainbow!`;
-      window.webxdc.sendUpdate({ payload: payload, info: info }, info);
-    }
+    window.highscores.setScore(this.state.score);
 
     switch (reason) {
       case "time":
@@ -136,6 +113,7 @@ export default class App extends Component {
   }
 
   render() {
+    const scores = window.highscores.getHighScores();
     return (
       <div key="game">
         {this.state.gameState === "playing" ? (
@@ -168,7 +146,7 @@ export default class App extends Component {
           <div className="body">
             <h1 className="title">Scoreboard</h1>
             <ul className="scoreboardlist" style={{ position: "relative" }}>
-              {Object.keys(this.PLAYERS).length > 0 ? (
+              {scores.length > 0 ? (
                 <li
                   className="record"
                   style={{
@@ -187,21 +165,19 @@ export default class App extends Component {
               ) : (
                 <p>No records yet</p>
               )}
-              {Object.keys(this.PLAYERS).length > 0 &&
-                Object.keys(this.PLAYERS)
-                  .sort((a, b) => this.PLAYERS[b].score - this.PLAYERS[a].score)
-                  .map((key, index) => (
+              {scores.length > 0 &&
+               scores.map((player) => (
                     <li
-                      key={key}
+                      key={player.pos}
                       className="record"
                       style={{
                         fontWeight:
-                          key === window.webxdc.selfAddr ? "bold" : "normal",
+                          player.current ? "bold" : "normal",
                       }}
                     >
-                      <span>{index + 1}</span>
-                      <span>{this.parseName(this.PLAYERS[key].name)}</span>
-                      <span>{this.PLAYERS[key].score}</span>
+                      <span>{player.pos}</span>
+                      <span>{this.parseName(player.name)}</span>
+                      <span>{player.score}</span>
                     </li>
                   ))}
             </ul>
