@@ -1,4 +1,4 @@
-@import "../variables";
+@use "../variables";
 
 .card {
   position: relative;
@@ -6,8 +6,8 @@
   border-radius: 10px;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  background-color: $question-background;
-  box-shadow: 0 10px 15px 0 $question-shadow;
+  background-color: variables.$question-background;
+  box-shadow: 0 10px 15px 0 variables.$question-shadow;
   margin-bottom: 15px;
   min-width: 200px;
   min-height: 120px;
@@ -16,18 +16,18 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  color: $question-text;
+  color: variables.$question-text;
 }
 
 .highlight {
-  color: $question-highlight;
+  color: variables.$question-highlight;
   position: absolute;
   left: 20px;
   text-transform: uppercase;
 }
 
 .highlightAlt {
-  color: $question-highlight-alt;
+  color: variables.$question-highlight-alt;
   position: absolute;
   right: 20px;
   text-transform: uppercase;
@@ -41,29 +41,29 @@
 }
 
 .red_q {
-  color: $red;
+  color: variables.$red;
 }
 
 .green_q {
-  color: $green;
+  color: variables.$green;
 }
 
 .blue_q {
-  color: $blue;
+  color: variables.$blue;
 }
 
 .yellow_q {
-  color: $yellow;
+  color: variables.$yellow;
 }
 
 .purple_q {
-  color: $purple;
+  color: variables.$purple;
 }
 
 .pink_q {
-  color: $pink;
+  color: variables.$pink;
 }
 
 .orange_q {
-  color: $orange;
+  color: variables.$orange;
 }

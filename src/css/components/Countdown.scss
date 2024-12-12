@@ -1,4 +1,4 @@
-@import "../variables";
+@use "../variables";
 
 .countdown {
   position: absolute;
@@ -9,8 +9,8 @@
 }
 
 .countdown .remaining {
-  background-color: $countdown-background;
+  background-color: variables.$countdown-background;
   height: 5px;
-  box-shadow: 0 1px 5px $countdown-shadow;
+  box-shadow: 0 1px 5px variables.$countdown-shadow;
   transition: width 0.05s;
 }

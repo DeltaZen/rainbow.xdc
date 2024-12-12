@@ -1,13 +1,13 @@
-@import "../variables";
+@use "../variables";
 
 .body {
-  background-color: $body-background;
+  background-color: variables.$body-background;
   height: calc(100vh - 20px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 10px;
-  color: $body-text;
+  color: variables.$body-text;
   font-family: "Gudea", sans-serif;
 }
 

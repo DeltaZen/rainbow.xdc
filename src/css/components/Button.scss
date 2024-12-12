@@ -1,4 +1,4 @@
-@import "../variables";
+@use "../variables";
 
 .group {
   flex-grow: 1;
@@ -37,20 +37,20 @@
   @extend %reset-button;
   @extend %standard-button;
 
-  color: $subtle-button-text;
-  background-color: $subtle-button-backgorund;
+  color: variables.$subtle-button-text;
+  background-color: variables.$subtle-button-backgorund;
 }
 
 .primaryButton {
   @extend %reset-button;
   @extend %standard-button;
 
-  color: $primary-button-text;
-  background-color: $primary-button-background;
-  box-shadow: 0 8px 0 0 $primary-button-box-shadow;
+  color: variables.$primary-button-text;
+  background-color: variables.$primary-button-background;
+  box-shadow: 0 8px 0 0 variables.$primary-button-box-shadow;
 
   &:active {
-    box-shadow: 0 4px $primary-button-box-shadow;
+    box-shadow: 0 4px variables.$primary-button-box-shadow;
     transform: translateY(4px);
   }
 }
@@ -68,11 +68,11 @@
 .red {
   @extend %round-button;
 
-  background-color: $red;
-  box-shadow: 0 8px 0 0 $red-2;
+  background-color: variables.$red;
+  box-shadow: 0 8px 0 0 variables.$red-2;
 
   &:active {
-    box-shadow: 0 4px $red-2;
+    box-shadow: 0 4px variables.$red-2;
     transform: translateY(4px);
   }
 }
@@ -80,11 +80,11 @@
 .green {
   @extend %round-button;
 
-  background-color: $green;
-  box-shadow: 0 8px 0 0 $green-2;
+  background-color: variables.$green;
+  box-shadow: 0 8px 0 0 variables.$green-2;
 
   &:active {
-    box-shadow: 0 4px $green-2;
+    box-shadow: 0 4px variables.$green-2;
     transform: translateY(4px);
   }
 }
@@ -92,11 +92,11 @@
 .blue {
   @extend %round-button;
 
-  background-color: $blue;
-  box-shadow: 0 8px 0 0 $blue-2;
+  background-color: variables.$blue;
+  box-shadow: 0 8px 0 0 variables.$blue-2;
 
   &:active {
-    box-shadow: 0 4px $blue-2;
+    box-shadow: 0 4px variables.$blue-2;
     transform: translateY(4px);
   }
 }
@@ -104,11 +104,11 @@
 .yellow {
   @extend %round-button;
 
-  background-color: $yellow;
-  box-shadow: 0 8px 0 0 $yellow-2;
+  background-color: variables.$yellow;
+  box-shadow: 0 8px 0 0 variables.$yellow-2;
 
   &:active {
-    box-shadow: 0 4px $yellow-2;
+    box-shadow: 0 4px variables.$yellow-2;
     transform: translateY(4px);
   }
 }
